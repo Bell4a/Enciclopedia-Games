@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Cadastrar Novo Jogo</h1>
+</div>
+
+<form action="{{ url_for('cadastrar_jogo') }}" method="POST">
+    <div class="mb-3">
+        <label for="titulo_jogo" class="form-label">Nome do Jogo</label>
+        <input type="text" class="form-control" id="titulo_jogo" name="titulo_jogo" required>
+    </div>
+    <div class="mb-3">
+        <label for="descricao_jogo" class="form-label">Descrição do Jogo</label>
+        <input type="text" class="form-control" id="descricao_jogo" name="descricao_jogo">
+    </div>
+    <div class="mb-3">
+        <label for="data_lancamento_jogo" class="form-label">Data de Lançamento do Jogo</label>
+        <input type="text" class="form-control" id="data_lancamento_jogo" name="data_lancamento_jogo" placeholder="AAAA-MM-DD">
+    </div>
+    <div class="mb-3">
+        <label for="url_imagem_capa_jogo" class="form-label">URL Imagem do Jogo</label>
+        <input type="text" class="form-control" id="url_imagem_capa_jogo" name="url_imagem_capa_jogo">
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label for="cod_desenvolvedor" class="form-label">Desenvolvedor</label>
+            <select class="form-select" id="cod_desenvolvedor" name="cod_desenvolvedor" required>
+                <option selected disabled value="">Selecione...</option>
+                {% for des in desenvolvedores %}
+                <option value="{{ des.cod_Desenvolvedor }}">{{ des.nome_Desenvolvedor }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="cod_publicadora" class="form-label">Publicadora</label>
+            <select class="form-select" id="cod_publicadora" name="cod_publicadora" required>
+                <option selected disabled value="">Selecione...</option>
+                {% for pub in publicadoras %}
+                <option value="{{ pub.cod_Publicadora }}">{{ pub.nome_Publicadora }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label for="plataformas" class="form-label">Plataformas (segure Ctrl/Cmd para selecionar várias)</label>
+            <select class="form-select" id="plataformas" name="plataformas" multiple size="8" required>
+                {% for plat in plataformas %}
+                <option value="{{ plat.cod_Plataforma }}">{{ plat.nome_Plataforma }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="generos" class="form-label">Gêneros (segure Ctrl/Cmd para selecionar vários)</label>
+            <select class="form-select" id="generos" name="generos" multiple size="8" required>
+                {% for gen in generos %}
+                <option value="{{ gen.cod_Genero }}">{{ gen.nome_Genero }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    
+    
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a href="{{ url_for('jogos') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}
